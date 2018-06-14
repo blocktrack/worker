@@ -1,0 +1,22 @@
+#!/bin/node
+var argv = require('minimist')(process.argv.slice(2));
+var config = require('./config/worker');
+
+let network = argv.n || argv.network || config.type;
+
+config.seed= (argv.s || argv.seed) ? argv.s || argv.seed : config.seed;
+
+let engraver = require('./models/'+network);
+
+let message = (argv.m) ? argv.m : argv.message;
+
+if (!message) {
+    console.error('no message specified please use -m or -message to set a message');
+} else {
+    engraver.post(message)
+        .then((data) => {
+		console.log(data)
+            console.log(engraver.url(data.txid));
+        })
+        .catch(console.error);
+}
