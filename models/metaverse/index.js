@@ -8,7 +8,6 @@ module.exports = {
     url: (txid) => 'https://explorer.mvs.org/#!/tx/' + txid
 };
 
-
 function post(message) {
     return Metaverse.wallet.fromMnemonic(config.seed)
         .then((wallet) =>
