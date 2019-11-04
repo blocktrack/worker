@@ -12,8 +12,7 @@ module.exports = {
 function post(message) {
     return Metaverse.wallet.fromMnemonic(config.seed)
         .then((wallet) =>
-            blockchain.addresses.txs([wallet.getAddresses()[1]])
-            .then(txs => Metaverse.output.calculateUtxo(txs.transactions, [wallet.getAddresses()[1]])) //Get all utxo
+            blockchain.utxo.get([wallet.getAddresses()[0]])
             .then((utxos) => Metaverse.output.findUtxo(utxos, {}, 0)) //Collect utxo for given target
             .then((result) => {
                 if (mvs_config.use_mit) {
