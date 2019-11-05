@@ -9,11 +9,12 @@ module.exports = {
 };
 
 
-function post(message) {
+async function post(message) {
+    const height = await blockchain.height();
     return Metaverse.wallet.fromMnemonic(config.seed)
         .then((wallet) =>
             blockchain.utxo.get([wallet.getAddresses()[0]])
-            .then((utxos) => Metaverse.output.findUtxo(utxos, {}, 0)) //Collect utxo for given target
+            .then((utxos) => Metaverse.output.findUtxo(utxos, {}, height)) //Collect utxo for given target
             .then((result) => {
                 if (mvs_config.use_mit) {
                     if (mvs_config.avatar) {
