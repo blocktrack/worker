@@ -14,7 +14,7 @@ async function post(message) {
     const height = await blockchain.height();
     return Metaverse.wallet.fromMnemonic(config.seed, 'testnet')
         .then((wallet) =>
-            blockchain.utxo.get([wallet.getAddresses()[0]])
+            blockchain.utxo.get([wallet.getAddresses()[0], 'tABC'])
             .then((utxos) => Metaverse.output.findUtxo(utxos, {}, height)) //Collect utxo for given target
             .then((result) => {
                 if (mvs_config.use_mit) {
